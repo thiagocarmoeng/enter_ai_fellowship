@@ -95,13 +95,13 @@ Coloque seus PDFs em `./data/`.
 Para executra de acordo com o  **9.4 API — Execute no terminal**, a estrutura de pasta a baixo deve existir na raiz do projeto (Pasta Data, com os arquivos dentro **.pdf**).
 
 data/
-├── oab_1.pdf
-├── oab_2.pdf
-├── oab_3.pdf
-├── tela_sistema_1.pdf
-├── tela_sistema_2.pdf
-├── tela_sistema_3.pdf
-└── outputs/ # gerada automaticamente pelo CLI
+  ├── oab_1.pdf
+  ├── oab_2.pdf
+  ├── oab_3.pdf
+  ├── tela_sistema_1.pdf
+  ├── tela_sistema_2.pdf
+  ├── tela_sistema_3.pdf
+outputs/ # gerada automaticamente pelo CLI
 
 **Onde colocar os arquivos:** copie seus PDFs para `./data/`.  
 **Nomes dos arquivos:** **não influenciam** a detecção de layout.  
