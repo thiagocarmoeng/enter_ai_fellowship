@@ -164,15 +164,10 @@ uvicorn app.api:app --reload --host 0.0.0.0 --port 8000
 
 **Acesse no navegador:**
 Swagger (interativo): http://localhost:8000/docs#/
+
 ReDoc (documentação): http://localhost:8000/redoc
+
 UI simples (se habilitada): http://localhost:8000/ui
-
-**Endpoints principais:**
-
-![resultado_terminal](docs/tela_api.png)
-
-**healthcheck**
-curl http://localhost:8000/health
 
 # 5 Esquemas padrão (quando o cliente NÃO envia extraction_schema)
 ## 5.1 carteira_oab (superset fixo)
@@ -220,17 +215,17 @@ Campos não encontrados retornam "" (detalhes em debug, se habilitado).
 
 **API — exemplos (cURL):**
 **Tela de Sistema (subset)**
-curl -X POST "http://127.0.0.1:8000/extract" \
+curl -X POST "http://localhost:8000/extract" \
   -F 'file=@data/tela_sistema_1.pdf' \
   -F 'extraction_schema={"pesquisa_por":"","sistema":"","valor_parcela":""}'
 
 **Carteira OAB (subset)**
-curl -X POST "http://127.0.0.1:8000/extract" \
+curl -X POST "http://localhost:8000/extract" \
   -F 'file=@data/oab_1.pdf' \
   -F 'extraction_schema={"nome":"","inscricao":"","situacao":""}'
 
 **Sem extraction_schema - usa o superset padrão**
-curl -X POST "http://127.0.0.1:8000/extract" \
+curl -X POST "http://localhost:8000/extract" \
   -F "file=@data/tela_sistema_2.pdf"
 CLI — exemplos:
 
@@ -326,9 +321,10 @@ python cli.py --dir data --split-out data/outputs --enable-ocr
 
 ## 9.3 API — subir e testar via Swagger
 uvicorn app.api:app --reload
-**Abra http://127.0.0.1:8000/docs#/**
-**Execuções úteis (orquestrador/avaliação):**
+**Abra http://localhost:8000/docs#/**
 
+
+![resultado_terminal](docs/tela_api.png)
 
 ## 9.4 API — Execute no terminal
 ORCH_VERBOSE=1 EXTRACT_USE_LLM=1 \
