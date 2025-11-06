@@ -94,14 +94,8 @@ Coloque seus PDFs em `./data/`.
 ### 4.1 Estrutura esperada da pasta `data/`
 Para executra de acordo com o  **9.4 API — Execute no terminal**, a estrutura de pasta a baixo deve existir na raiz do projeto (Pasta Data, com os arquivos dentro **.pdf**).
 
-data/
-  ├── oab_1.pdf
-  ├── oab_2.pdf
-  ├── oab_3.pdf
-  ├── tela_sistema_1.pdf
-  ├── tela_sistema_2.pdf
-  ├── tela_sistema_3.pdf
-outputs/ # gerada automaticamente pelo CLI
+
+![Estrutura dos dados](docs/Estrutura-pasta-Data+Output.png)
 
 **Onde colocar os arquivos:** copie seus PDFs para `./data/`.  
 **Nomes dos arquivos:** **não influenciam** a detecção de layout.  
@@ -166,12 +160,16 @@ pip install -r requirements.txt
 **Suba o servidor:**
 uvicorn app.api:app --reload --host 0.0.0.0 --port 8000
 
+![resultado_terminal](docs/resultado_terminal.png)
+
 **Acesse no navegador:**
 Swagger (interativo): http://localhost:8000/docs#/
 ReDoc (documentação): http://localhost:8000/redoc
 UI simples (se habilitada): http://localhost:8000/ui
 
 **Endpoints principais:**
+
+![resultado_terminal](docs/tela_api.png)
 
 **healthcheck**
 curl http://localhost:8000/health
@@ -253,6 +251,9 @@ Windows/PowerShell: use aspas duplas fora e escape internamente, ex.:
 A UI do projeto foi pensada para **testar a extração** sem precisar de cURL ou scripts.  
 Ela fica em: **http://localhost:8000/ui** (quando o servidor FastAPI está rodando).
 
+
+![ui api](docs/IMG_UI_Projeto.png)
+
 ## 7.1 Como usar
 1. **Abra** `http://localhost:8000/ui`.
 2. **Envie o PDF**:
@@ -314,34 +315,7 @@ Ocultar botão “Selecionar arquivo”: no desktop ele já fica oculto; para es
 
 
 # 8 Estrutura sugerida do projeto
-enter-extractor/
-└── app/
-    ├── __init__.py
-    ├── api.py                 # FastAPI /extract
-    ├── cli.py                 # CLI p/ lote em série
-    ├── static/
-    |  ├── app.js
-    |  ├── index.html
-    |  └── style.css
-    ├── core/
-    |  ├── pdf_reader.py          # pymupdf/pdfminer
-    |  ├── layout_indexer.py
-    |  ├── field_matcher.py       # âncoras + regex + vizinhança
-    |  ├── validators.py          # normalização BR
-    |  ├── orchestrator.py        # estratégia, budget de custo/tempo
-    |  ├── llm_client.py          # wrapper LLM (somente quando precisa)
-    |  ├── cache.py               # cache por hash do PDF+schema
-    |  ├── schemas.py             # pydantic p/ I/O
-    |  └── models.py
-    ├── data/
-    |  ├── oab_1.pdf
-    |  ├── tela_sistema_1.pdf
-    |  └── dataset.json
-    ├── outputs/
-    |  └── consolidado_filled.json
-    ├── .env
-    ├── README.md
-    └── requirements.txt
+![Estrutura do projeto](docs/Estrutura-do-projeto.png)
 
 # 9 Exemplos end-to-end rápidos
 ## 9.1 CLI — processar tudo e salvar UM JSON
