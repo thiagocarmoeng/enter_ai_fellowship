@@ -1,0 +1,4 @@
+# --- pedidas agora ---
+/files/
+.venv/
+**/__pycache__/
