@@ -17,6 +17,20 @@ O design privilegia clareza e manutenção: componentes separados para **leitura
 
 ## 1 Desafios mapeados - decisões - soluções
 
+### 1.0 Fallback LLM - Configuração do arquivo .env
+
+Para ativar o fallback por LLM quando a cobertura < limiar:
+
+EXTRACT_USE_LLM=1           
+LLM_PROVIDER=openai         # openai | anthropic | azure_openai
+LLM_MODEL=gpt-5-mini        # ID exato do modelo no provedor
+LLM_API_KEY=coloque_sua_chave_aqui. 
+EXTRACT_USE_LLM=1
+
+Obs.: O arquivo já está no formato, so insira a chave da API sem espaços. 
+Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
+
+
 ### 1.1 Variedade de layouts e baixa padronização
 **Desafio:** fontes com layouts diferentes (e.g., `tela_sistema_1.pdf`, `tela_sistema_2.pdf`, `tela_sistema_3.pdf`, carteiras OAB de formatos variados).
 **Decisão:** **detectar o layout antes de extrair**.
@@ -78,6 +92,7 @@ Procurei atender com precisão a todos os requisitos de avaliação sendo estes:
 Coloque seus PDFs em `./data/`.
 
 ### 4.1 Estrutura esperada da pasta `data/`
+Para executra de acordo com o  **9.4 API — Execute no terminal**, a estrutura de pasta a baixo deve existir na raiz do projeto (Pasta Data, com os arquivos dentro **.pdf**).
 
 data/
 ├── oab_1.pdf
@@ -270,7 +285,7 @@ Observação: elementos como **campo “API base”** e **botão Health** podem 
 ## 7.5 Configurações úteis para a UI
 No `.env` do backend:
 
-**habilita debug estruturado no /extract**
+# habilita debug estruturado no /extract
 API_DEBUG=1
 
 **habilita LLM por padrão (pode ser sobrescrito pelo checkbox da UI)**
@@ -340,6 +355,8 @@ uvicorn app.api:app --reload
 **Abra http://127.0.0.1:8000/docs#/**
 **Execuções úteis (orquestrador/avaliação):**
 
+
+## 9.4 API — Execute no terminal
 ORCH_VERBOSE=1 EXTRACT_USE_LLM=1 \
 
 python -m app.cli "./data" "./outputs/consolidado_filled.json" --mode=filled

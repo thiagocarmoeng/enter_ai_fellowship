@@ -23,7 +23,7 @@ except Exception:
 
 from core.orchestrator import run_extract
 from core.pdf_reader import extract_lines
-from core.field_matcher import detect_tela_layout as fm_detect_layout  # fallback
+from core.field_matcher import detect_tela_layout as fm_detect_layout 
 
 # ---------------- Config ----------------
 EXTRACT_MIN_COVERAGE = float(os.getenv("EXTRACT_MIN_COVERAGE", "0.90"))
@@ -32,7 +32,6 @@ API_FORCE_LAYOUT = os.getenv("API_FORCE_LAYOUT", "").lower()  # "v1"|"v2"|"v3" p
 DEFAULT_USE_LLM = (os.getenv("EXTRACT_USE_LLM", "0") == "1")
 
 def _llm_env_ok() -> bool:
-    # Aceita chaves comuns
     return bool(
         os.getenv("LLM_API_KEY") or
         os.getenv("OPENAI_API_KEY") or
@@ -46,7 +45,7 @@ def _llm_meta():
         "available": _llm_env_ok(),
     }
 
-app = FastAPI(title="ENTER Extractor API", version="0.6.1")
+app = FastAPI(title="ENTER Extractor API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -286,9 +285,8 @@ async def health():
 # caminho absoluto para a pasta static (dentro de app/)
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 if not os.path.isdir(STATIC_DIR):
-    print(f"[WARN] STATIC_DIR não existe: {STATIC_DIR}")  # só pra debug
+    print(f"[WARN] STATIC_DIR não existe: {STATIC_DIR}")
 
-# monta /static -> app/static
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 from fastapi.responses import FileResponse
