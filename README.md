@@ -158,7 +158,7 @@ UI simples (se habilitada): http://localhost:8000/ui
 
 **Endpoints principais:**
 
-# healthcheck
+**healthcheck**
 curl http://localhost:8000/health
 
 # 5 Esquemas padrão (quando o cliente NÃO envia extraction_schema)
@@ -270,7 +270,7 @@ Observação: elementos como **campo “API base”** e **botão Health** podem 
 ## 7.5 Configurações úteis para a UI
 No `.env` do backend:
 
-# habilita debug estruturado no /extract
+**habilita debug estruturado no /extract**
 API_DEBUG=1
 
 **habilita LLM por padrão (pode ser sobrescrito pelo checkbox da UI)**
