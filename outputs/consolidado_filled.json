@@ -1,0 +1,77 @@
+[
+  {
+    "label": "carteira_oab",
+    "extraction_schema": {
+      "nome": "JOANA D'ARC",
+      "inscricao": "101943",
+      "seccional": "PR",
+      "subsecao": "CONSELHO SECCIONAL - PARANÁ",
+      "categoria": "SUPLEMENTAR",
+      "endereco_profissional": "AVENIDA PAULISTA, Nº 2300 andar Pilotis, Bela Vista SÃO PAULO - SP 01310300",
+      "telefone_profissional": "",
+      "situacao": "SITUAÇÃO REGULAR"
+    },
+    "pdf_path": "oab_1.pdf"
+  },
+  {
+    "label": "carteira_oab",
+    "extraction_schema": {
+      "nome": "LUIS FILIPE ARAUJO AMARAL",
+      "inscricao": "101943",
+      "seccional": "PR",
+      "subsecao": "CONSELHO SECCIONAL - PARANÁ",
+      "categoria": "SUPLEMENTAR",
+      "endereco_profissional": "AVENIDA PAULISTA, Nº 2300 andar Pilotis, Bela Vista SÃO PAULO - SP 01310300",
+      "telefone_profissional": "",
+      "situacao": "SITUAÇÃO REGULAR"
+    },
+    "pdf_path": "oab_2.pdf"
+  },
+  {
+    "label": "carteira_oab",
+    "extraction_schema": {
+      "nome": "SON GOKU",
+      "inscricao": "101943",
+      "seccional": "PR",
+      "subsecao": "CONSELHO SECCIONAL - PARANÁ",
+      "categoria": "SUPLEMENTAR",
+      "endereco_profissional": "K",
+      "telefone_profissional": "",
+      "situacao": "SITUAÇÃO REGULAR"
+    },
+    "pdf_path": "oab_3.pdf"
+  },
+  {
+    "label": "tela_sistema",
+    "extraction_schema": {
+      "data_referencia": "05/09/2025",
+      "selecao_de_parcelas": "Vencidas",
+      "total_de_parcelas": "76.871,20"
+    },
+    "pdf_path": "tela_sistema_1.pdf"
+  },
+  {
+    "label": "tela_sistema",
+    "extraction_schema": {
+      "pesquisa_por": "Tipo",
+      "pesquisa_tipo": "Sistema",
+      "sistema": "Contrato",
+      "valor_parcela": "2.372,64",
+      "cidade": "Mozarlândia U"
+    },
+    "pdf_path": "tela_sistema_2.pdf"
+  },
+  {
+    "label": "tela_sistema",
+    "extraction_schema": {
+      "data_base": "04/02/2021",
+      "data_verncimento": "25/03/2030",
+      "quantidade_parcelas": "96",
+      "produto": "REFINANCIAMENTO",
+      "sistema": "Contrato",
+      "tipo_de_operacao": "Renegociação",
+      "tipo_de_sistema": "Consignado"
+    },
+    "pdf_path": "tela_sistema_31.pdf"
+  }
+]

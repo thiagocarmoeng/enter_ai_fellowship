@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ENTER Extractor</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="split">
+    <!-- LEFT: claro, com logo + upload -->
+    <section class="side left">
+      <header class="brandline" aria-label="Cabeçalho">
+        <div class="brand" aria-label="Logo ENTER">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">ENTER</span>
+        </div>
+        <small class="brand-sub">ANTERIORMENTE TALISMAN AI</small>
+      </header>
+
+      <div class="left-inner">
+        <h1 class="page-title">Extrair dados</h1>
+        <p class="page-sub">Envie um PDF e informe o <strong>extraction_schema</strong> para extrair as informações automaticamente.</p>
+
+        <!-- Dropzone -->
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Solte um PDF aqui">
+          <input id="fileInput" type="file" accept="application/pdf" hidden />
+          <div class="dz-inner">
+            <div class="upload-icon" aria-hidden="true">⬆</div>
+            <p><strong>Arraste e solte</strong> o PDF aqui</p>
+            <p class="muted">ou</p>
+            <p><strong>Clique aqui</strong></p>
+            <!-- Label abre o seletor de arquivos em qualquer dispositivo -->
+            <label for="fileInput" id="browseBtn" class="btn choose dz-browse">Selecionar arquivo</label>
+
+            <p class="hint">Apenas .pdf</p>
+          </div>
+        </div>
+
+        <!-- Info do arquivo -->
+        <div id="fileInfo" class="file-info" hidden aria-live="polite">
+          <div><strong>Arquivo:</strong> <span id="fileName"></span></div>
+          <div><strong>Tamanho:</strong> <span id="fileSize"></span></div>
+        </div>
+
+        <!-- Extraction schema obrigatório -->
+        <div class="field">
+          <label for="schemaInput"><strong>Extraction schema</strong> (obrigatório)</label>
+          <textarea id="schemaInput" rows="4" placeholder='ALL ou JSON, ex.: {"nome":"", "inscricao":""}'>ALL</textarea>
+          <small>Dica: use <code>ALL</code> para retornar todas as chaves conhecidas do label inferido.</small>
+        </div>
+
+        <!-- Presets de schema (opcional) -->
+        <div class="field">
+          <div class="btn-row">
+            <button type="button" id="presetAll"  class="btn mini">ALL</button>
+            <button type="button" id="presetOAB"  class="btn mini">OAB superset</button>
+            <button type="button" id="presetTela" class="btn mini">Tela superset</button>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+          <label class="switch" title="Usar fallback LLM quando cobertura < limiar">
+            <input id="useLLM" type="checkbox" checked />
+            <span>Usar LLM quando cobertura &lt; limiar</span>
+          </label>
+
+          <div class="endpoint-inline">
+            <label for="apiBase" title="Endpoint base da API">API</label>
+            <input id="apiBase" type="text" value="/extract" />
+            <button id="healthBtn" class="btn mini" title="Verificar /health">Health</button>
+          </div>
+
+          <button id="sendBtn" class="btn primary" disabled>Extrair</button>
+        </div>
+
+        <!-- Progresso -->
+        <div id="progress" class="progress" hidden aria-hidden="true">
+          <div class="bar" id="progressBar"></div>
+        </div>
+
+        <!-- Crédito -->
+        <div class="credit-inline" role="contentinfo" aria-label="Crédito do desenvolvedor">
+          <svg class="li-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.45 20.45h-3.56v-5.62c0-1.34-.03-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.72H9.3V9h3.42v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.64 0 4.31 2.4 4.31 5.52v6.22zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z"/>
+          </svg>
+          <a href="https://www.linkedin.com/in/thiago-augusto-do-carmo/" target="_blank" rel="noopener noreferrer"
+             aria-label="LinkedIn de Thiago Augusto do Carmo">
+            Developed by <strong>Thiago Augusto do Carmo</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: escuro, com abas de resultado -->
+    <section class="side right" aria-label="Resultados">
+      <div class="right-card">
+        <div class="tabs" role="tablist" aria-label="Abas">
+          <button class="tab active" data-tab="result" role="tab" aria-selected="true">Extraído</button>
+          <button class="tab" data-tab="debug" role="tab" aria-selected="false">Debug</button>
+        </div>
+
+        <div id="panel-result" class="panel active" role="tabpanel" aria-labelledby="tab-result">
+          <div id="resultGrid" class="kv-grid empty">
+            <div class="placeholder">Nenhum resultado ainda.</div>
+          </div>
+        </div>
+
+        <div id="panel-debug" class="panel" role="tabpanel" aria-labelledby="tab-debug">
+          <pre id="debug" class="json-view empty">Sem debug.</pre>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
