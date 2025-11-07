@@ -234,68 +234,41 @@ UI simples (se habilitada): http://localhost:8000/ui
 # 5 Esquemas padrão (quando o cliente NÃO envia extraction_schema)
 
 ## 5.1 carteira_oab (superset fixo)
-  {
-
-    "nome": "",
-
-    "inscricao": "",
-
-    "seccional": "",
-
-    "subsecao": "",
-
-    "categoria": "",
-
-    "endereco_profissional": "",
-
-    "telefone_profissional": "",
-
-    "situacao": ""
-
-  }
+  {\
+    "nome": "",\
+    "inscricao": "",\
+    "seccional": "",\
+    "subsecao": "",\
+    "categoria": "",\
+    "endereco_profissional": "",\
+    "telefone_profissional": "",\
+    "situacao": ""\
+  }\
 
 ## 5.2 tela_sistema — Superset (todas as chaves conhecidas)
-  {
-
-    "data_referencia": "",
-
-    "selecao_de_parcelas": "",
-
-    "total_de_parcelas": "",
-
-    "pesquisa_por": "",
-
-    "pesquisa_tipo": "",
-
-    "sistema": "",
-
-    "valor_parcela": "",
-
-    "cidade": "",
-
-    "data_base": "",
-
-    "data_verncimento": "",
-
-    "quantidade_parcelas": "",
-
-    "produto": "",
-
-    "tipo_de_operacao": "",
-
-    "tipo_de_sistema": ""
-
-  }
+  {\
+    "data_referencia": "",\
+    "selecao_de_parcelas": "",\
+    "total_de_parcelas": "",\
+    "pesquisa_por": "",\
+    "pesquisa_tipo": "",\
+    "sistema": "",\
+    "valor_parcela": "",\
+    "cidade": "",\
+    "data_base": "",\
+    "data_verncimento": "",\
+    "quantidade_parcelas": "",\
+    "produto": "",\
+    "tipo_de_operacao": "",\
+    "tipo_de_sistema": ""\
+  }\
 
 **Observação (modo padrão):** a resposta usa o superset por label.
-
 O layout (v1/v2/v3) é usado apenas para métrica de cobertura e acionar fallback LLM, sem recortar a saída.
 
 # 6 Informando o extraction_schema (subset de campos)
-
-A API/CLI aceita que você informe apenas as chaves que deseja extrair para um dado label.
-
-Isso permite usar a solução sem conhecer o schema completo do label — você só pede o subset necessário.
+A API/CLI aceita que você informe apenas as chaves que deseja extrair para um dado label.\
+Isso permite usar a solução sem conhecer o schema completo do label — você só pede o subset necessário.\
 
 **Regras:**
 
