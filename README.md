@@ -163,23 +163,14 @@ python cli.py --dir data --split-out data/outputs
 python cli.py --dir data --enable-ocr --disable-llm --out data/outputs/run.json
 
 **Parâmetros do cli.py:**
-
---pdf PATH — processa um único PDF.
-
---dir DIR — processa todos os PDFs do diretório.
-
---pattern GLOB — ex.: "oab_*.pdf", "*.pdf" (com --dir).
-
---out FILE — grava um JSON consolidado.
-
---split-out DIR — grava um JSON por PDF em DIR.
-
---enable-ocr / --disable-ocr — liga/desliga OCR.
-
---disable-llm — evita fallback LLM.
-
---pretty — formata o JSON.
-
+--pdf PATH — processa um único PDF.\
+--dir DIR — processa todos os PDFs do diretório.\
+--pattern GLOB — ex.: "oab_*.pdf", "*.pdf" (com --dir).\
+--out FILE — grava um JSON consolidado.\
+--split-out DIR — grava um JSON por PDF em DIR.\
+--enable-ocr / --disable-ocr — liga/desliga OCR.\
+--disable-llm — evita fallback LLM.\
+--pretty — formata o JSON.\
 --log-level INFO|DEBUG — verbosidade.
 
 **Saída típica por arquivo:**
