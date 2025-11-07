@@ -184,29 +184,18 @@ python cli.py --dir data --enable-ocr --disable-llm --out data/outputs/run.json
 
 **Saída típica por arquivo:**
 
-{
-
-  "ok": true,
-
-  "label": "tela_sistema",
-
-  "extraction_schema": { "pesquisa_por": "Tipo", "pesquisa_tipo": "Sistema", "sistema": "Contrato", "valor_parcela": "", "cidade": "" },
-
-  "pdf_path": "tela_sistema_31.pdf",
-
-  "debug": {
-
-    "layout_final": "v2",
-
-    "coverage": { "threshold": 0.9, "before": 0.6, "after": 0.6 },
-
-    "llm_requested": true,
-
-    "per_layout": { "v1": 0.14285714285714285, "v2": 0.6, "v3": 0 }
-
+  {
+    "ok": true,
+    "label": "tela_sistema",
+    "extraction_schema": { "pesquisa_por": "Tipo", "pesquisa_tipo": "Sistema", "sistema": "Contrato", "valor_parcela": "", "cidade": "" },
+    "pdf_path": "tela_sistema_31.pdf",
+    "debug": {
+      "layout_final": "v2",
+      "coverage": { "threshold": 0.9, "before": 0.6, "after": 0.6 },
+      "llm_requested": true,
+      "per_layout": { "v1": 0.14285714285714285, "v2": 0.6, "v3": 0 }
+    }
   }
-
-}
 
 **Como tenho usado mac fica a dica caso o sistema ao qual iram roda seja windos:**
 
