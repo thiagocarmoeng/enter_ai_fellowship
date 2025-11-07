@@ -368,8 +368,8 @@ ______
 
 ## 10 Tempo total de desenvolvimento.
 INICIO : Sabado, 1 de novembro \
-FIM :  Quinta-feira, 6 de novembro \
+FIM :  Quinta-feira, 6 de novembro 
 
-Horas : 37 hrs aproximadamente. \
+Horas : 37 hrs aproximadamente. 
 
 **Obrigado!**
