@@ -353,7 +353,9 @@ uvicorn app.api:app --reload
 ORCH_VERBOSE=1 EXTRACT_USE_LLM=1 \
 
 python -m app.cli "./data" "./outputs/consolidado_filled.json" --mode=filled
+![command_filled](docs/command_filled.png)
 
 python -m tools.evaluate ./outputs/consolidado_filled.json ./data --verbose
+![command_verbose](docs/command_verbose.png)
 
 **Obrigado!**
