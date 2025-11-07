@@ -42,15 +42,15 @@ Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
 
 **Solução:**
 
-  Detector **híbrido v1/v2/v3** com:
+Detector **híbrido v1/v2/v3** com:
 
-    Heurísticas de cobertura por **âncoras** (palavras-chave, padrões visuais e campos esperados).
+Heurísticas de cobertura por **âncoras** (palavras-chave, padrões visuais e campos esperados).
 
-    `per_layout` com **scores** e escolha por **coverage** acima de `threshold`.
+`per_layout` com **scores** e escolha por **coverage** acima de `threshold`.
 
-    **Fallback inteligente:** se nenhum layout atingir o limiar, usa modo **flexível** e, se necessário, **LLM** apenas para campos ambíguos.
+**Fallback inteligente:** se nenhum layout atingir o limiar, usa modo **flexível** e, se necessário, **LLM** apenas para campos ambíguos.
 
-  **Explicabilidade:** retornamos `debug.per_layout`, `threshold`, `detected_hint` e flag `llm_requested`.
+**Explicabilidade:** retornamos `debug.per_layout`, `threshold`, `detected_hint` e flag `llm_requested`.
 
 ### 1.3 Sensibilidade ao nome do arquivo
 **Desafio:** inferências enviesadas pelo nome (ex.: sufixos `_1`, `_2`, `_3`).
@@ -61,13 +61,13 @@ Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
 **Desafio:** pequenas variações de tipografia/acentos quebram a extração.
 **Decisão:** **extratores composicionais** em múltiplas rotas:
 
-  1.4.1 Regex **tolerante** (acentos, espaços, prefixos).
+1.4.1 Regex **tolerante** (acentos, espaços, prefixos).
 
-  1.4.2 **Âncoras semânticas** (janela de contexto).
+1.4.2 **Âncoras semânticas** (janela de contexto).
 
-  1.4.3 **Normalização** (NFKD, espaços, pontuação).
+1.4.3 **Normalização** (NFKD, espaços, pontuação).
 
-  1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
+1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
 
 **Solução:** cada campo retorna **confiança** e, no `debug`, a **rota vencedora**.
 
@@ -92,9 +92,9 @@ Procurei atender com precisão a todos os requisitos de avaliação sendo estes:
 
 **Extração robusta** para:
 
-  **Carteira OAB:** `nome`, `inscricao`, `seccional`, `subsecao`, `categoria`, `endereco_profissional`, `telefone_profissional`, `situacao`.
+**Carteira OAB:** `nome`, `inscricao`, `seccional`, `subsecao`, `categoria`, `endereco_profissional`, `telefone_profissional`, `situacao`.
 
-  **Tela de Sistema:** `pesquisa_por`, `pesquisa_tipo`, `sistema`, `valor_parcela`, `cidade`.
+**Tela de Sistema:** `pesquisa_por`, `pesquisa_tipo`, `sistema`, `valor_parcela`, `cidade`.
 
 **Independência do nome do arquivo**.  
 
@@ -244,58 +244,58 @@ UI simples (se habilitada): http://localhost:8000/ui
 # 5 Esquemas padrão (quando o cliente NÃO envia extraction_schema)
 
 ## 5.1 carteira_oab (superset fixo)
-{
+  {
 
-  "nome": "",
+    "nome": "",
 
-  "inscricao": "",
+    "inscricao": "",
 
-  "seccional": "",
+    "seccional": "",
 
-  "subsecao": "",
+    "subsecao": "",
 
-  "categoria": "",
+    "categoria": "",
 
-  "endereco_profissional": "",
+    "endereco_profissional": "",
 
-  "telefone_profissional": "",
+    "telefone_profissional": "",
 
-  "situacao": ""
+    "situacao": ""
 
-}
+  }
 
 ## 5.2 tela_sistema — Superset (todas as chaves conhecidas)
-{
+  {
 
-  "data_referencia": "",
+    "data_referencia": "",
 
-  "selecao_de_parcelas": "",
+    "selecao_de_parcelas": "",
 
-  "total_de_parcelas": "",
+    "total_de_parcelas": "",
 
-  "pesquisa_por": "",
+    "pesquisa_por": "",
 
-  "pesquisa_tipo": "",
+    "pesquisa_tipo": "",
 
-  "sistema": "",
+    "sistema": "",
 
-  "valor_parcela": "",
+    "valor_parcela": "",
 
-  "cidade": "",
+    "cidade": "",
 
-  "data_base": "",
+    "data_base": "",
 
-  "data_verncimento": "",
+    "data_verncimento": "",
 
-  "quantidade_parcelas": "",
+    "quantidade_parcelas": "",
 
-  "produto": "",
+    "produto": "",
 
-  "tipo_de_operacao": "",
+    "tipo_de_operacao": "",
 
-  "tipo_de_sistema": ""
+    "tipo_de_sistema": ""
 
-}
+  }
 
 **Observação (modo padrão):** a resposta usa o superset por label.
 
@@ -351,7 +351,6 @@ Windows/PowerShell: use aspas duplas fora e escape internamente, ex.:
 
 A UI do projeto foi pensada para **testar a extração** sem precisar de cURL ou scripts.  
 Ela fica em: **http://localhost:8000/ui** (quando o servidor FastAPI está rodando).
-
 
 ![ui api](docs/IMG_UI_Projeto.png)
 
@@ -440,7 +439,6 @@ python cli.py --dir data --split-out data/outputs --enable-ocr
 ## 9.3 API — subir e testar via Swagger
 uvicorn app.api:app --reload
 **Abra http://localhost:8000/docs#/**
-
 
 ![resultado_terminal](docs/tela_api.png)
 
