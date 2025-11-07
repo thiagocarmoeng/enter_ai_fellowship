@@ -64,19 +64,19 @@ Heurísticas de cobertura por **âncoras** (palavras-chave, padrões visuais e c
   1.4.1 Regex **tolerante** (acentos, espaços, prefixos).\
   1.4.2 **Âncoras semânticas** (janela de contexto).\
   1.4.3 **Normalização** (NFKD, espaços, pontuação).\
-  1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.\
+  1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
 
 **Solução:** cada campo retorna **confiança** e, no `debug`, a **rota vencedora**.
 
 ### 1.5 PDFs “desenhados” vs. textuais
 **Desafio:** PDFs imagem sem camada de texto.\
 **Decisão:** **pipeline adaptativo**: tenta texto; se vazio, ativa OCR.\
-**Solução:** camada de **OCR** (configurável) + normalização pós-OCR.\
+**Solução:** camada de **OCR** (configurável) + normalização pós-OCR.
 
 ### 1.6 Transparência e auditabilidade
 **Desafio:** justificar escolhas para QA/evolução.\
 **Decisão:** resposta sempre com **metadados de decisão**.\
-**Solução:** `debug` inclui `layout_final`, `coverage.before/after`, `per_layout`, `detected_hint`, `llm_requested`.\
+**Solução:** `debug` inclui `layout_final`, `coverage.before/after`, `per_layout`, `detected_hint`, `llm_requested`.
 
 ## 2 O que foi endereçado nesta versão
 Procurei atender com precisão a todos os requisitos de avaliação sendo estes:\
@@ -88,7 +88,7 @@ Procurei atender com precisão a todos os requisitos de avaliação sendo estes:
 **Resposta explicável** (debug completo).  \
 **API FastAPI** com upload/rota JSON.  \
 **Testes** com PDFs de exemplo e **schema de saída padronizado**.\
-**Backlog curto:** dicionário de sinônimos regionais (endereços/telefones), classificador visual leve p/ subtipos OAB e avaliador de qualidade (precision/recall por campo).\
+**Backlog curto:** dicionário de sinônimos regionais (endereços/telefones), classificador visual leve p/ subtipos OAB e avaliador de qualidade (precision/recall por campo).
 
 ## 3 Como funciona (visão rápida)
 
