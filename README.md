@@ -363,4 +363,13 @@ python -m app.cli "./data" "./outputs/consolidado_filled.json" --mode=filled
 python -m tools.evaluate ./outputs/consolidado_filled.json ./data --verbose
 ![command_verbose](docs/command_verbose.png)
 
+
+______
+
+## 10 Tempo total de desenvolvimento.
+INICIO : Sabado, 1 de novembro \
+FIM :  Quinta-feira, 6 de novembro \
+
+Horas : 37 hrs aproximadamente. \
+
 **Obrigado!**
