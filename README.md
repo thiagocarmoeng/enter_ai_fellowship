@@ -61,10 +61,10 @@ Heurísticas de cobertura por **âncoras** (palavras-chave, padrões visuais e c
 ### 1.4 Campos com padrões frágeis (regex “quebradiço”)
 **Desafio:** pequenas variações de tipografia/acentos quebram a extração.\
 **Decisão:** **extratores composicionais** em múltiplas rotas:\
-1.4.1 Regex **tolerante** (acentos, espaços, prefixos).\
-1.4.2 **Âncoras semânticas** (janela de contexto).\
-1.4.3 **Normalização** (NFKD, espaços, pontuação).\
-1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.\
+  1.4.1 Regex **tolerante** (acentos, espaços, prefixos).\
+  1.4.2 **Âncoras semânticas** (janela de contexto).\
+  1.4.3 **Normalização** (NFKD, espaços, pontuação).\
+  1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.\
 
 **Solução:** cada campo retorna **confiança** e, no `debug`, a **rota vencedora**.
 
@@ -154,7 +154,7 @@ python cli.py --dir data --enable-ocr --disable-llm --out data/outputs/run.json
       "llm_requested": true, \
       "per_layout": { "v1": 0.14285714285714285, "v2": 0.6, "v3": 0 } \
     } \
-  } \
+  } 
 
 **Como tenho usado mac fica a dica caso o sistema ao qual iram roda seja windos:**
 
@@ -202,7 +202,7 @@ UI simples (se habilitada): http://localhost:8000/ui
     "endereco_profissional": "",\
     "telefone_profissional": "",\
     "situacao": ""\
-  }\
+  }
 
 ## 5.2 tela_sistema — Superset (todas as chaves conhecidas)
   {\
@@ -220,7 +220,7 @@ UI simples (se habilitada): http://localhost:8000/ui
     "produto": "",\
     "tipo_de_operacao": "",\
     "tipo_de_sistema": ""\
-  }\
+  }
 
 **Observação (modo padrão):** a resposta usa o superset por label.
 O layout (v1/v2/v3) é usado apenas para métrica de cobertura e acionar fallback LLM, sem recortar a saída.
@@ -233,7 +233,7 @@ Isso permite usar a solução sem conhecer o schema completo do label — você 
   Envie um objeto JSON (valores são ignorados; usamos só os nomes das chaves).\
   As chaves solicitadas devem existir no superset do label (ver seção acima).\
   A ordem das chaves enviadas é preservada na resposta.\
-  Campos não encontrados retornam "" (detalhes em debug, se habilitado).\
+  Campos não encontrados retornam "" (detalhes em debug, se habilitado).
 
 **API — exemplos (cURL):**
 
@@ -309,16 +309,16 @@ Dica: a **barra de progresso** indica upload/processamento. Abaixo da dropzone a
 No `.env` do backend:
 
 **habilita debug estruturado no /extract**
-API_DEBUG=1\
+API_DEBUG=1
 
 **habilita LLM por padrão (pode ser sobrescrito pelo checkbox da UI)**
-EXTRACT_USE_LLM=1\
+EXTRACT_USE_LLM=1
 
 **limiar de cobertura que decide o fallback LLM**
-EXTRACT_MIN_COVERAGE=0.90\
+EXTRACT_MIN_COVERAGE=0.90
 
 **CORS (se for servir a UI em outra origem)**
-CORS_ALLOW_ORIGINS=*\
+CORS_ALLOW_ORIGINS=*
 
 Se a UI for servida de outro host/porta (ex.: Next.js dev server), ajuste CORS_ALLOW_ORIGINS (por exemplo, http://localhost:3000).
 
@@ -331,7 +331,7 @@ Se a UI for servida de outro host/porta (ex.: Next.js dev server), ajuste CORS_A
 
 ## 7.7 Personalização visual
   Logo/branding: altere os seletores .brand, .logo-mark, .logo-text no index.html e as cores no styles.css.\
-  Ocultar botão “Selecionar arquivo”: no desktop ele já fica oculto; para esconder também no mobile, remova o elemento do HTML ou aplique display: none ao seletor específico usado no seu tema (ex.: .only-mobile).\
+  Ocultar botão “Selecionar arquivo”: no desktop ele já fica oculto; para esconder também no mobile, remova o elemento do HTML ou aplique display: none ao seletor específico usado no seu tema (ex.: .only-mobile).
 
 # 8 Estrutura sugerida do projeto
 ![Estrutura do projeto](docs/Estrutura-do-projeto.png)
