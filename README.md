@@ -268,17 +268,13 @@ O layout (v1/v2/v3) é usado apenas para métrica de cobertura e acionar fallbac
 
 # 6 Informando o extraction_schema (subset de campos)
 A API/CLI aceita que você informe apenas as chaves que deseja extrair para um dado label.\
-Isso permite usar a solução sem conhecer o schema completo do label — você só pede o subset necessário.\
+Isso permite usar a solução sem conhecer o schema completo do label — você só pede o subset necessário.
 
 **Regras:**
-
-Envie um objeto JSON (valores são ignorados; usamos só os nomes das chaves).
-
-As chaves solicitadas devem existir no superset do label (ver seção acima).
-
-A ordem das chaves enviadas é preservada na resposta.
-
-Campos não encontrados retornam "" (detalhes em debug, se habilitado).
+  Envie um objeto JSON (valores são ignorados; usamos só os nomes das chaves).\
+  As chaves solicitadas devem existir no superset do label (ver seção acima).\
+  A ordem das chaves enviadas é preservada na resposta.\
+  Campos não encontrados retornam "" (detalhes em debug, se habilitado).\
 
 **API — exemplos (cURL):**
 
@@ -321,9 +317,7 @@ Ela fica em: **http://localhost:8000/ui** (quando o servidor FastAPI está rodan
 7.1.1 **Abra** `http://localhost:8000/ui`.
 
 7.1.2 **Envie o PDF**:
-
    - **Desktop:** arraste e solte o arquivo na **dropzone** (toda a área é clicável; o input nativo fica oculto).
-
    - **Mobile:** toque na dropzone e selecione o arquivo (em telas pequenas pode aparecer um botão “Selecionar arquivo” interno).
 
 7.1.3 (Opcional) **Usar LLM quando cobertura < limiar**: marque/desmarque o **checkbox** para permitir o fallback LLM quando a cobertura medida ficar abaixo do limiar configurado.
@@ -356,38 +350,29 @@ Dica: a **barra de progresso** indica upload/processamento. Abaixo da dropzone a
 No `.env` do backend:
 
 **habilita debug estruturado no /extract**
-
-API_DEBUG=1
+API_DEBUG=1\
 
 **habilita LLM por padrão (pode ser sobrescrito pelo checkbox da UI)**
-
-EXTRACT_USE_LLM=1
+EXTRACT_USE_LLM=1\
 
 **limiar de cobertura que decide o fallback LLM**
-
-EXTRACT_MIN_COVERAGE=0.90
+EXTRACT_MIN_COVERAGE=0.90\
 
 **CORS (se for servir a UI em outra origem)**
-
-CORS_ALLOW_ORIGINS=*
+CORS_ALLOW_ORIGINS=*\
 
 Se a UI for servida de outro host/porta (ex.: Next.js dev server), ajuste CORS_ALLOW_ORIGINS (por exemplo, http://localhost:3000).
 
 ## 7.6 Limitações e notas
 
-Somente PDF (uma página, com OCR embutido).
-
-O input nativo de arquivo fica oculto no desktop; no mobile pode existir um botão visível dentro da dropzone para facilitar o toque.
-
-Tamanho máximo do upload depende do servidor/infra (ex.: proxies, reverse proxy).
-
-A UI envia sempre file e, se o checkbox estiver marcado, use_llm=true. O extraction_schema (subset de chaves) não é configurável pela UI por padrão — use cURL/CLI se precisar informar um schema customizado.
+  Somente PDF (uma página, com OCR embutido).\
+  O input nativo de arquivo fica oculto no desktop; no mobile pode existir um botão visível dentro da dropzone para facilitar o toque.\
+  Tamanho máximo do upload depende do servidor/infra (ex.: proxies, reverse proxy).\
+  A UI envia sempre file e, se o checkbox estiver marcado, use_llm=true. O extraction_schema (subset de chaves) não é configurável pela UI por padrão — use cURL/CLI se precisar informar um schema customizado.
 
 ## 7.7 Personalização visual
-Logo/branding: altere os seletores .brand, .logo-mark, .logo-text no index.html e as cores no styles.css.
-
-Ocultar botão “Selecionar arquivo”: no desktop ele já fica oculto; para esconder também no mobile, remova o elemento do HTML ou aplique display: none ao seletor específico usado no seu tema (ex.: .only-mobile).
-
+  Logo/branding: altere os seletores .brand, .logo-mark, .logo-text no index.html e as cores no styles.css.\
+  Ocultar botão “Selecionar arquivo”: no desktop ele já fica oculto; para esconder também no mobile, remova o elemento do HTML ou aplique display: none ao seletor específico usado no seu tema (ex.: .only-mobile).\
 
 # 8 Estrutura sugerida do projeto
 ![Estrutura do projeto](docs/Estrutura-do-projeto.png)
