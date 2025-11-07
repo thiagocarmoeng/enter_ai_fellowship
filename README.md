@@ -59,67 +59,45 @@ Heurísticas de cobertura por **âncoras** (palavras-chave, padrões visuais e c
 **Solução:** toda inferência vem do **conteúdo** (texto embutido + estrutura). Validado renomeando os PDFs.
 
 ### 1.4 Campos com padrões frágeis (regex “quebradiço”)
-**Desafio:** pequenas variações de tipografia/acentos quebram a extração.
-**Decisão:** **extratores composicionais** em múltiplas rotas:
-
-1.4.1 Regex **tolerante** (acentos, espaços, prefixos).
-
-1.4.2 **Âncoras semânticas** (janela de contexto).
-
-1.4.3 **Normalização** (NFKD, espaços, pontuação).
-
-1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
+**Desafio:** pequenas variações de tipografia/acentos quebram a extração.\
+**Decisão:** **extratores composicionais** em múltiplas rotas:\
+1.4.1 Regex **tolerante** (acentos, espaços, prefixos).\
+1.4.2 **Âncoras semânticas** (janela de contexto).\
+1.4.3 **Normalização** (NFKD, espaços, pontuação).\
+1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.\
 
 **Solução:** cada campo retorna **confiança** e, no `debug`, a **rota vencedora**.
 
 ### 1.5 PDFs “desenhados” vs. textuais
-**Desafio:** PDFs imagem sem camada de texto.
-
-**Decisão:** **pipeline adaptativo**: tenta texto; se vazio, ativa OCR.
-
-**Solução:** camada de **OCR** (configurável) + normalização pós-OCR.
+**Desafio:** PDFs imagem sem camada de texto.\
+**Decisão:** **pipeline adaptativo**: tenta texto; se vazio, ativa OCR.\
+**Solução:** camada de **OCR** (configurável) + normalização pós-OCR.\
 
 ### 1.6 Transparência e auditabilidade
-**Desafio:** justificar escolhas para QA/evolução.
-
-**Decisão:** resposta sempre com **metadados de decisão**.
-
-**Solução:** `debug` inclui `layout_final`, `coverage.before/after`, `per_layout`, `detected_hint`, `llm_requested`.
+**Desafio:** justificar escolhas para QA/evolução.\
+**Decisão:** resposta sempre com **metadados de decisão**.\
+**Solução:** `debug` inclui `layout_final`, `coverage.before/after`, `per_layout`, `detected_hint`, `llm_requested`.\
 
 ## 2 O que foi endereçado nesta versão
-Procurei atender com precisão a todos os requisitos de avaliação sendo estes:
-
-**Detecção de layout** (v1/v2/v3) com pontuação e threshold.  
-
-**Extração robusta** para:
-
-**Carteira OAB:** `nome`, `inscricao`, `seccional`, `subsecao`, `categoria`, `endereco_profissional`, `telefone_profissional`, `situacao`.
-
-**Tela de Sistema:** `pesquisa_por`, `pesquisa_tipo`, `sistema`, `valor_parcela`, `cidade`.
-
-**Independência do nome do arquivo**.  
-
-**Resposta explicável** (debug completo).  
-
-**API FastAPI** com upload/rota JSON.  
-
-**Testes** com PDFs de exemplo e **schema de saída padronizado**.
-
-**Backlog curto:** dicionário de sinônimos regionais (endereços/telefones), classificador visual leve p/ subtipos OAB e avaliador de qualidade (precision/recall por campo).
+Procurei atender com precisão a todos os requisitos de avaliação sendo estes:\
+**Detecção de layout** (v1/v2/v3) com pontuação e threshold.  \
+**Extração robusta** para:\
+**Carteira OAB:** `nome`, `inscricao`, `seccional`, `subsecao`, `categoria`, `endereco_profissional`, `telefone_profissional`, `situacao`.\
+**Tela de Sistema:** `pesquisa_por`, `pesquisa_tipo`, `sistema`, `valor_parcela`, `cidade`.\
+**Independência do nome do arquivo**.  \
+**Resposta explicável** (debug completo).  \
+**API FastAPI** com upload/rota JSON.  \
+**Testes** com PDFs de exemplo e **schema de saída padronizado**.\
+**Backlog curto:** dicionário de sinônimos regionais (endereços/telefones), classificador visual leve p/ subtipos OAB e avaliador de qualidade (precision/recall por campo).\
 
 ## 3 Como funciona (visão rápida)
 
-3.1 **Entrada:** PDF (upload) ou caminho local.  
-
-3.2 **Pré-processamento:** detecta se há texto; se não, roda **OCR**.  
-
-3.3 **Detecção de Layout:** calcula **coverage** por `v1`, `v2`, `v3`; escolhe `layout_final`.  
-
-3.4 **Extração por Campo:** aplica **rotas** (regex -> âncoras -> normalização -> LLM fallback).  
-
-3.5 **Normalização** (telefone, endereço, categoria).  
-
-3.6 **Saída:** JSON com `label`, `extraction_schema`, `pdf_path` e `debug`.
+3.1 **Entrada:** PDF (upload) ou caminho local.  \
+3.2 **Pré-processamento:** detecta se há texto; se não, roda **OCR**.  \
+3.3 **Detecção de Layout:** calcula **coverage** por `v1`, `v2`, `v3`; escolhe `layout_final`.  \
+3.4 **Extração por Campo:** aplica **rotas** (regex -> âncoras -> normalização -> LLM fallback).  \
+3.5 **Normalização** (telefone, endereço, categoria).  \
+3.6 **Saída:** JSON com `label`, `extraction_schema`, `pdf_path` e `debug`.\
 
 ## 4 Como usar — **CLI** e **API**
 
@@ -131,35 +109,25 @@ Para executra de acordo com o  **9.4 API — Execute no terminal**, a estrutura 
 ![Estrutura dos dados](docs/Estrutura-pasta-Data+Output.png)
 
 **Onde colocar os arquivos:** copie seus PDFs para `./data/`.  
-
 **Nomes dos arquivos:** **não influenciam** a detecção de layout.  
-
 **`outputs/`:** o CLI cria (se não existir) e grava os resultados lá.
 
 ### 4.2 Rodando **somente o CLI**
-
 **Instale as dependências:**
-
 pip install -r requirements.txt
 
 **Comandos comuns:**
-
 **4.2.1 Um único PDF - saída no terminal (stdout)**
-
 python cli.py --pdf data/oab_1.pdf
 
 **4.2.2 Vários PDFs por padrão/curinga - salva JSON único**
-
 python cli.py --dir data --pattern "oab_*.pdf" \
-
   --out data/outputs/oab_results.json --pretty
 
 **4.2.3 Processar todo o diretório data/ e salvar um JSON por arquivo**
-
 python cli.py --dir data --split-out data/outputs
 
 **4.2.4 Forçar OCR (caso seus PDFs sejam imagens) e desativar fallback LLM**
-
 python cli.py --dir data --enable-ocr --disable-llm --out data/outputs/run.json
 
 **Parâmetros do cli.py:**
