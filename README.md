@@ -34,6 +34,7 @@ EXTRACT_USE_LLM=1
 Obs.: O arquivo já está no formato, so insira a chave da API sem espaços. 
 Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
 
+![arquivo_env](docs/arquivo_env.png)
 
 ### 1.2 Variedade de layouts e baixa padronização
 **Desafio:** fontes com layouts diferentes (e.g., `tela_sistema_1.pdf`, `tela_sistema_2.pdf`, `tela_sistema_3.pdf`, carteiras OAB de formatos variados).
