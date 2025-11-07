@@ -17,7 +17,7 @@ O design privilegia clareza e manutenção: componentes separados para **leitura
 
 ## 1 Desafios mapeados - decisões - soluções
 
-### 1.0 Fallback LLM - Configuração do arquivo .env
+### 1.1 Fallback LLM - Configuração do arquivo .env
 
 Para ativar o fallback por LLM quando a cobertura < limiar:
 
@@ -31,7 +31,7 @@ Obs.: O arquivo já está no formato, so insira a chave da API sem espaços.
 Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
 
 
-### 1.1 Variedade de layouts e baixa padronização
+### 1.2 Variedade de layouts e baixa padronização
 **Desafio:** fontes com layouts diferentes (e.g., `tela_sistema_1.pdf`, `tela_sistema_2.pdf`, `tela_sistema_3.pdf`, carteiras OAB de formatos variados).
 **Decisão:** **detectar o layout antes de extrair**.
 **Solução:**
@@ -41,26 +41,26 @@ Exemplo: LLM_API_KEY=**k-svcacct-PZPkNEhlJ......**
     **Fallback inteligente:** se nenhum layout atingir o limiar, usa modo **flexível** e, se necessário, **LLM** apenas para campos ambíguos.
   **Explicabilidade:** retornamos `debug.per_layout`, `threshold`, `detected_hint` e flag `llm_requested`.
 
-### 1.2 Sensibilidade ao nome do arquivo
+### 1.3 Sensibilidade ao nome do arquivo
 **Desafio:** inferências enviesadas pelo nome (ex.: sufixos `_1`, `_2`, `_3`).
 **Decisão:** **ignorar completamente o nome do arquivo**.
 **Solução:** toda inferência vem do **conteúdo** (texto embutido + estrutura). Validado renomeando os PDFs.
 
-### 1.3 Campos com padrões frágeis (regex “quebradiço”)
+### 1.4 Campos com padrões frágeis (regex “quebradiço”)
 **Desafio:** pequenas variações de tipografia/acentos quebram a extração.
 **Decisão:** **extratores composicionais** em múltiplas rotas:
-  1. Regex **tolerante** (acentos, espaços, prefixos).
-  2. **Âncoras semânticas** (janela de contexto).
-  3. **Normalização** (NFKD, espaços, pontuação).
-  4. **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
+  1.4.1 Regex **tolerante** (acentos, espaços, prefixos).
+  1.4.2 **Âncoras semânticas** (janela de contexto).
+  1.4.3 **Normalização** (NFKD, espaços, pontuação).
+  1.4.4 **Fallback LLM** apenas se as rotas anteriores não atingirem confiança mínima.
 **Solução:** cada campo retorna **confiança** e, no `debug`, a **rota vencedora**.
 
-### 1.4 PDFs “desenhados” vs. textuais
+### 1.5 PDFs “desenhados” vs. textuais
 **Desafio:** PDFs imagem sem camada de texto.
 **Decisão:** **pipeline adaptativo**: tenta texto; se vazio, ativa OCR.
 **Solução:** camada de **OCR** (configurável) + normalização pós-OCR.
 
-### 1.5 Transparência e auditabilidade
+### 1.6 Transparência e auditabilidade
 **Desafio:** justificar escolhas para QA/evolução.
 **Decisão:** resposta sempre com **metadados de decisão**.
 **Solução:** `debug` inclui `layout_final`, `coverage.before/after`, `per_layout`, `detected_hint`, `llm_requested`.
@@ -80,12 +80,12 @@ Procurei atender com precisão a todos os requisitos de avaliação sendo estes:
 
 ## 3 Como funciona (visão rápida)
 
-1. **Entrada:** PDF (upload) ou caminho local.  
-2. **Pré-processamento:** detecta se há texto; se não, roda **OCR**.  
-3. **Detecção de Layout:** calcula **coverage** por `v1`, `v2`, `v3`; escolhe `layout_final`.  
-4. **Extração por Campo:** aplica **rotas** (regex -> âncoras -> normalização -> LLM fallback).  
-5. **Normalização** (telefone, endereço, categoria).  
-6. **Saída:** JSON com `label`, `extraction_schema`, `pdf_path` e `debug`.
+3.1 **Entrada:** PDF (upload) ou caminho local.  
+3.2 **Pré-processamento:** detecta se há texto; se não, roda **OCR**.  
+3.3 **Detecção de Layout:** calcula **coverage** por `v1`, `v2`, `v3`; escolhe `layout_final`.  
+3.4 **Extração por Campo:** aplica **rotas** (regex -> âncoras -> normalização -> LLM fallback).  
+3.5 **Normalização** (telefone, endereço, categoria).  
+3.6 **Saída:** JSON com `label`, `extraction_schema`, `pdf_path` e `debug`.
 
 ## 4 Como usar — **CLI** e **API**
 
@@ -107,14 +107,17 @@ Para executra de acordo com o  **9.4 API — Execute no terminal**, a estrutura 
 
 pip install -r requirements.txt
 **Comandos comuns:**
-#### 1 Um único PDF - saída no terminal (stdout)
+**4.2.1 Um único PDF - saída no terminal (stdout)**
 python cli.py --pdf data/oab_1.pdf
-#### 2 Vários PDFs por padrão/curinga - salva JSON único
+
+**4.2.2 Vários PDFs por padrão/curinga - salva JSON único**
 python cli.py --dir data --pattern "oab_*.pdf" \
   --out data/outputs/oab_results.json --pretty
-#### 3 Processar todo o diretório data/ e salvar um JSON por arquivo
+
+**4.2.3 Processar todo o diretório data/ e salvar um JSON por arquivo**
 python cli.py --dir data --split-out data/outputs
-#### 4 Forçar OCR (caso seus PDFs sejam imagens) e desativar fallback LLM
+
+**4.2.4 Forçar OCR (caso seus PDFs sejam imagens) e desativar fallback LLM**
 python cli.py --dir data --enable-ocr --disable-llm --out data/outputs/run.json
 
 **Parâmetros do cli.py:**
@@ -250,13 +253,13 @@ Ela fica em: **http://localhost:8000/ui** (quando o servidor FastAPI está rodan
 ![ui api](docs/IMG_UI_Projeto.png)
 
 ## 7.1 Como usar
-1. **Abra** `http://localhost:8000/ui`.
-2. **Envie o PDF**:
+7.1.1 **Abra** `http://localhost:8000/ui`.
+7.1.2 **Envie o PDF**:
    - **Desktop:** arraste e solte o arquivo na **dropzone** (toda a área é clicável; o input nativo fica oculto).
    - **Mobile:** toque na dropzone e selecione o arquivo (em telas pequenas pode aparecer um botão “Selecionar arquivo” interno).
-3. (Opcional) **Usar LLM quando cobertura < limiar**: marque/desmarque o **checkbox** para permitir o fallback LLM quando a cobertura medida ficar abaixo do limiar configurado.
-4. Clique em **Extrair**.
-5. Veja os resultados na aba **“Extraído”**; troque para **“Debug”** para inspecionar decisões (layout, coverage, uso de LLM, etc.).
+7.1.3 (Opcional) **Usar LLM quando cobertura < limiar**: marque/desmarque o **checkbox** para permitir o fallback LLM quando a cobertura medida ficar abaixo do limiar configurado.
+7.1.4 Clique em **Extrair**.
+7.1.5 Veja os resultados na aba **“Extraído”**; troque para **“Debug”** para inspecionar decisões (layout, coverage, uso de LLM, etc.).
 
 Dica: a **barra de progresso** indica upload/processamento. Abaixo da dropzone a UI mostra **nome** e **tamanho** do arquivo selecionado.
 
